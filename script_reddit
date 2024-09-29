@@ -1,0 +1,21 @@
+import praw
+import pandas
+
+user_agent = "TU_USER_AGENT"
+reddit = praw.Reddit(
+    
+    client_id= "CLIENT ID",
+    client_secret="SECRET CLIENT",
+    user_agent=user_agent
+)
+
+
+subs = reddit.subreddit("mexico")
+df = []
+
+for submission in subs.top(time_filter="year"):
+    df.append([submission.title, submission.score, submission.num_comments, submission.selftext])
+
+df = pd.DataFrame(df, columns=["título", "score", "num_comments", "cuerpo"])
+
+df
